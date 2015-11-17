@@ -1,0 +1,27 @@
+{
+  "name": "bankoo-reactjs",
+  "version": "1.0.0",
+  "description": "New version of Bankoo using nodejs, gulp and reactjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/corasan/Bankoo-2.0.git"
+  },
+  "keywords": [
+    "bankoo"
+  ],
+  "author": "Henry Paulino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/corasan/Bankoo-2.0/issues"
+  },
+  "homepage": "https://github.com/corasan/Bankoo-2.0#readme",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-react": "^3.1.0"
+  }
+}
