@@ -27,6 +27,7 @@
     "gulp-server-livereload": "^1.5.4",
     "gulp-util": "^3.0.7",
     "react-dom": "^0.14.2",
+    "reactfire": "^0.5.1",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.6.1"

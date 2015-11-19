@@ -46,4 +46,5 @@ gulp.task('serve', function(done) {
       open: true
     }));
 });
+bundler.on('update', bundle);
 gulp.task('default', ['build', 'serve']);
