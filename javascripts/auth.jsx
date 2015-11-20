@@ -1,7 +1,10 @@
 var React = require('react');
 var Firebase = require('firebase');
-var ReactFireMixin = require('reactfire');
+var Router = require('react-router').Router
+var Route = require('react-router').Route
+var Link = require('react-router').Link
 var ref = new Firebase('https://bankoo.firebaseio.com/');
+var Transactions = require('./transactions');
 
 module.exports = React.createClass({
   render: function() {
@@ -12,10 +15,16 @@ module.exports = React.createClass({
 });
 
 var SignIn = React.createClass({
-  mixins: [ReactFireMixin],
   getInitialState: function() {
-    return {
-      loggedInUser: 'Log in'
+    var user = ref.getAuth();
+    if (!user) {
+      return {
+        loggedInUser: 'Log in'
+      }
+    } else {
+      return {
+        loggedInUser: user.google.displayName
+      }
     }
   },
   logOut: function() {
@@ -50,28 +59,33 @@ var SignIn = React.createClass({
       scope: 'email'
     });
   },
-
+  componentDidMount: function() {
+    var that = this;
+    var signedUpRef = ref.getAuth();
+    ref.child('users').child(signedUpRef.uid).once('value', function(data) {
+      var userData = data.val();
+      var name = userData.name;
+      that.setState({loggedInUser: name});
+    });
+  },
   render: function() {
     var user = ref.getAuth();
     if (!user) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#" onClick={this.loginButton}>Log in</a></li>
+          <li><a onClick={this.loginButton}>Log in</a></li>
         </ul>
       )
     } else {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#" onClick={this.loginButton}>{this.state.loggedInUser}</a></li>
-          <li><a href="#" onClick={this.logOut}>Log out</a></li>
+          <li><Link to="/transactions">Transactions</Link></li>
+          <li><a>{this.state.loggedInUser}</a></li>
+          <li><a onClick={this.logOut}>Log out</a></li>
         </ul>
       )
     }
   }
 });
 
-// {(() => {
-//   if (user) {
-//     <li><a href="#" onClick={this.logOut}>Log out</a></li>
-//   }
-// })()}
+// <li><a href="#" onClick={this.logOut}>Log out</a></li>
