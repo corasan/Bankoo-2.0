@@ -2,7 +2,6 @@ var React = require('react');
 var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var user = ref.getAuth();
 
 module.exports = React.createClass({
   render: function() {
@@ -53,11 +52,26 @@ var SignIn = React.createClass({
   },
 
   render: function() {
-    return (
-      <ul className="nav navbar-nav navbar-right">
-        <li><a href="#" onClick={this.loginButton}>{this.state.loggedInUser}</a></li>
-        <li><a href="#" onClick={this.logOut}>Log out</a></li>
-      </ul>
-    )
+    var user = ref.getAuth();
+    if (!user) {
+      return (
+        <ul className="nav navbar-nav navbar-right">
+          <li><a href="#" onClick={this.loginButton}>Log in</a></li>
+        </ul>
+      )
+    } else {
+      return (
+        <ul className="nav navbar-nav navbar-right">
+          <li><a href="#" onClick={this.loginButton}>{this.state.loggedInUser}</a></li>
+          <li><a href="#" onClick={this.logOut}>Log out</a></li>
+        </ul>
+      )
+    }
   }
 });
+
+// {(() => {
+//   if (user) {
+//     <li><a href="#" onClick={this.logOut}>Log out</a></li>
+//   }
+// })()}
