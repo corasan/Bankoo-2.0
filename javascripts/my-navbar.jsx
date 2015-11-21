@@ -1,16 +1,15 @@
 var React = require('react');
+var Navbar = require('react-bootstrap/lib').Navbar;
 var Link = require('react-router').Link
 var Auth = require('./auth');
 var Transactions = require('./transactions');
 
 module.exports = React.createClass({
-  render: function() {
+  render () {
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top">
-        <div className="container-fluid">
-          <Auth />
-        </div>
-      </nav>
+      <Navbar inverse className="navbar-fixed-top">
+        <Auth/>
+      </Navbar>
     )
   }
 });

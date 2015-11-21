@@ -1,39 +1,31 @@
 var React = require('react');
 var Firebase = require('firebase');
 var Link = require('react-router').Link
+var Navbar = require('react-bootstrap/lib').Navbar;
+var Nav = require('react-bootstrap/lib').Nav;
+var NavItem = require('react-bootstrap/lib').NavItem;
+var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var Transactions = require('./transactions');
+var hi = "hi";
 
 module.exports = React.createClass({
-  render: function() {
-    return (
-      <SignIn />
-    )
-  }
-});
-
-var SignIn = React.createClass({
-  getInitialState: function() {
+  getInitialState () {
     var user = ref.getAuth();
     if (!user) {
-      return {
-        loggedInUser: 'Log in'
-      }
+      return {loggedInUser: 'Log in'}
     } else {
-      return {
-        loggedInUser: user.google.displayName
-      }
+      return {loggedInUser: user.google.displayName}
     }
   },
-  logOut: function() {
+  logOut () {
     ref.unauth();
     this.setState({loggedInUser: 'Log in'});
   },
-  loginButton: function() {
+  loginButton () {
     var that = this;
     ref.authWithOAuthPopup('google', function(error, authData) {
       ref.child('users').child(authData.uid).once('value', function(data) {
-        if(data.exists()) {
+        if (data.exists()) {
           var userData = data.val();
           var name = userData.name;
           console.log('Logged in');
@@ -43,7 +35,8 @@ var SignIn = React.createClass({
           ref.child('users').child(authData.uid).set({
             provider: authData.provider,
             name: authData.google.displayName,
-            email: authData.google.email
+            email: authData.google.email,
+            balance: "$" + 0
           });
           var signedUser = ref.getAuth();
           ref.child('users').child(signedUser.uid).once('value', function(data) {
@@ -57,7 +50,7 @@ var SignIn = React.createClass({
       scope: 'email'
     });
   },
-  componentDidMount: function() {
+  componentDidMount () {
     var that = this;
     var signedUser = ref.getAuth();
     ref.child('users').child(signedUser.uid).once('value', function(data) {
@@ -66,29 +59,38 @@ var SignIn = React.createClass({
       that.setState({loggedInUser: name});
     });
   },
-  render: function() {
+  render () {
     var user = ref.getAuth();
     if (!user) {
       return (
-        <ul className="nav navbar-nav navbar-right">
-          <li><a onClick={this.loginButton}>Log in</a></li>
-        </ul>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <li>
+              <a onClick={this.loginButton}>Log in</a>
+            </li>
+          </Nav>
+        </Navbar.Collapse>
       )
     } else {
       return (
         <div>
-          <ul className="nav navbar-nav navbar-left">
-            <li><Link to="/">Home</Link></li>
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <li><Link to="/transactions">Transactions</Link></li>
-            <li><a>{this.state.loggedInUser}</a></li>
-            <li><a onClick={this.logOut}>Log out</a></li>
-          </ul>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Home</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <li>
+                <Link to="/transactions">Transactions</Link>
+              </li>
+              <NavItem>{this.state.loggedInUser}</NavItem>
+              <NavItem onClick={this.logOut}>Log out</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </div>
       )
     }
   }
 });
-
-// <li><a href="#" onClick={this.logOut}>Log out</a></li>

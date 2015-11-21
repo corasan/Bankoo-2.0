@@ -1,7 +1,11 @@
 .render-container {
   padding-top: 70px;
 }
-
+@media (min-width: 1200px) {
+  .container {
+    width: 1400px;
+  }
+}
 /*li {
   list-style-type: none;
   display: inline;
