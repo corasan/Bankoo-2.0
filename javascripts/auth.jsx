@@ -73,7 +73,7 @@ module.exports = React.createClass({
       )
     } else {
       return (
-        <div>
+        <div class="render-container">
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Home</Link>
