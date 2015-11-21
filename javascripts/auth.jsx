@@ -1,7 +1,5 @@
 var React = require('react');
 var Firebase = require('firebase');
-var Router = require('react-router').Router
-var Route = require('react-router').Route
 var Link = require('react-router').Link
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var Transactions = require('./transactions');
@@ -47,8 +45,8 @@ var SignIn = React.createClass({
             name: authData.google.displayName,
             email: authData.google.email
           });
-          var signedUpRef = ref.getAuth();
-          ref.child('users').child(signedUpRef.uid).once('value', function(data) {
+          var signedUser = ref.getAuth();
+          ref.child('users').child(signedUser.uid).once('value', function(data) {
             var userData = data.val();
             var name = userData.name;
             that.setState({loggedInUser: name});
@@ -61,8 +59,8 @@ var SignIn = React.createClass({
   },
   componentDidMount: function() {
     var that = this;
-    var signedUpRef = ref.getAuth();
-    ref.child('users').child(signedUpRef.uid).once('value', function(data) {
+    var signedUser = ref.getAuth();
+    ref.child('users').child(signedUser.uid).once('value', function(data) {
       var userData = data.val();
       var name = userData.name;
       that.setState({loggedInUser: name});
@@ -78,11 +76,16 @@ var SignIn = React.createClass({
       )
     } else {
       return (
-        <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/transactions">Transactions</Link></li>
-          <li><a>{this.state.loggedInUser}</a></li>
-          <li><a onClick={this.logOut}>Log out</a></li>
-        </ul>
+        <div>
+          <ul className="nav navbar-nav navbar-left">
+            <li><Link to="/">Home</Link></li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li><Link to="/transactions">Transactions</Link></li>
+            <li><a>{this.state.loggedInUser}</a></li>
+            <li><a onClick={this.logOut}>Log out</a></li>
+          </ul>
+        </div>
       )
     }
   }

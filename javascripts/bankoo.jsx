@@ -5,6 +5,7 @@ var Route = require('react-router').Route
 var Link = require('react-router').Link
 var Navbar = require('./navbar');
 var Transactions = require('./transactions');
+var Home = require('./user_home');
 
 var Bankoo = React.createClass({
   render: function() {
@@ -20,7 +21,8 @@ var Bankoo = React.createClass({
 ReactDOM.render(
   (
     <Router>
-      <Route path="/" component={Bankoo}>
+      <Route component={Bankoo}>
+        <Route path="/" component={Home} />
         <Route path="transactions" component={Transactions} />
       </Route>
     </Router>
