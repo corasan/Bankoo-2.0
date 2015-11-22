@@ -18,7 +18,7 @@ module.exports = React.createClass({
   },
   saveTransaction () {
     ref.child('users').child(user.uid).child('transactions').push({
-      amount: "$" + this.state.amountText,
+      amount: this.state.amountText,
       type: this.state.tranType
     });
     this.setState({amountText: '', tranType: '', showModal: false});
@@ -32,7 +32,7 @@ module.exports = React.createClass({
   //   this.setState({disabled: disabled});
   // },
   handleAmountChange (event) {
-    this.setState({amountText: event.target.value});
+    this.setState({amountText: parseInt(event.target.value)});
   },
   handleSelectChange () {
     this.setState({tranType: this.refs.select.getValue()});

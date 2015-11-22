@@ -6,15 +6,14 @@ var Nav = require('react-bootstrap/lib').Nav;
 var NavItem = require('react-bootstrap/lib').NavItem;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var hi = "hi";
 
 module.exports = React.createClass({
   getInitialState () {
     var user = ref.getAuth();
-    if (!user) {
-      return {loggedInUser: 'Log in'}
-    } else {
+    if (user) {
       return {loggedInUser: user.google.displayName}
+    } else {
+      return {loggedInUser: 'Log in'}
     }
   },
   logOut () {
@@ -29,14 +28,13 @@ module.exports = React.createClass({
           var userData = data.val();
           var name = userData.name;
           console.log('Logged in');
-          //render heree
           that.setState({loggedInUser: name});
         } else {
           ref.child('users').child(authData.uid).set({
             provider: authData.provider,
             name: authData.google.displayName,
             email: authData.google.email,
-            balance: "$" + 0
+            balance: 0
           });
           var signedUser = ref.getAuth();
           ref.child('users').child(signedUser.uid).once('value', function(data) {
@@ -73,7 +71,7 @@ module.exports = React.createClass({
       )
     } else {
       return (
-        <div class="render-container">
+        <div>
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Home</Link>
