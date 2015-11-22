@@ -21,21 +21,13 @@ module.exports = React.createClass({
       amount: parseFloat(this.state.amountText),
       type: this.state.tranType
     });
-    this.setState({amountText: '', tranType: '', showModal: false});
+    this.setState({amountText: '', tranType: '', showModal: false, disabled: true});
   },
-  // handleValidation () {
-  //   var amountValue = this.refs.amountInput.getValue();
-  //   var typeValue = this.refs.select.getValue();
-  //   var x = "disabled"
-  //   if (amountValue === /(\d+)(\.)?(\d+)/g && typeValue !== '') x = "success";
-  //   disbled = x !== "disabled";
-  //   this.setState({disabled: disabled});
-  // },
   handleAmountChange (event) {
     this.setState({amountText: event.target.value});
   },
   handleSelectChange () {
-    this.setState({tranType: this.refs.select.getValue()});
+    this.setState({tranType: this.refs.select.getValue(), disabled: false});
   },
   render () {
     return (
@@ -50,9 +42,9 @@ module.exports = React.createClass({
           </Modal.Header>
           <Modal.Body>
             <form>
-              <Input type="text" addonBefore="$" label="amountInput" onChange={this.handleAmountChange} value={this.state.amountText}/>
+              <Input type="number" addonBefore="$" label="amountInput" onChange={this.handleAmountChange} value={this.state.amountText}/>
               <Input type="select" label="Transaction Type" ref="select" onChange={this.handleSelectChange}>
-                <option></option>
+                <option>Select Type</option>
                 <option>Deposit</option>
                 <option>Withdraw</option>
               </Input>
@@ -60,7 +52,7 @@ module.exports = React.createClass({
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Cancel</Button>
-            <Button onClick={this.saveTransaction}>Done</Button>
+            <Button onClick={this.saveTransaction} disabled={this.state.disabled}>Done</Button>
           </Modal.Footer>
         </Modal>
       </div>
