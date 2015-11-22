@@ -4,7 +4,6 @@ var ReactFireMixin = require('reactfire');
 var CreateTransaction = require('./create-transaction');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
-var userRef = ref.child('users').child(user.uid);
 
 module.exports = React.createClass({
   render () {
@@ -24,11 +23,11 @@ var UserBalance = React.createClass({
   },
   componentDidMount () {
     var that = this;
+    var userRef = ref.child('users').child(user.uid);
     userRef.child('transactions').on('value', function(data) {
-      console.log(data.val());
       var arr = [],
         total = 0,
-        transactions = data.val()
+        transactions = data.val();
       for (var i in transactions) {
         arr.push(transactions[i].amount);
       }
@@ -41,11 +40,7 @@ var UserBalance = React.createClass({
   },
   render () {
     return (
-      <h3>Your Balance: ${this.state.userBalance}</h3>
+      <h3>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h3>
     )
   }
 });
-
-// var TransactionsTable = React.createClass({
-//   getTransactions () {}
-// });
