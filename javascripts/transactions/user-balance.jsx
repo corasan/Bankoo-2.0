@@ -1,17 +1,19 @@
 var React = require('react');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
+var ReactFire = require('reactfire');
 
 module.exports = React.createClass({
+  mixins: [ReactFire],
   getInitialState () {
+    // this.bindAsObject(ref.child('users').child(user.uid).child('transactions'), 'transactions');
     return {userBalance: 0}
   },
   componentWillMount () {
-    var that = this;
+    // var that = this;
     var userRef = ref.child('users').child(user.uid);
     userRef.child('transactions').on('value', function(data) {
-      var arr = [],
-        total = 0,
+      var total = 0,
         transactions = data.val();
       for (var i in transactions) {
         if (transactions[i].type == "Withdraw") {
@@ -21,8 +23,8 @@ module.exports = React.createClass({
         }
       }
       userRef.update({balance: total});
-      that.setState({userBalance: total});
-    });
+      this.setState({userBalance: total});
+    }.bind(this));
   },
   render () {
     if (this.state.userBalance < 0) {

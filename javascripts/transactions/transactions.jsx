@@ -3,6 +3,7 @@ var Firebase = require('firebase');
 var ReactFireMixin = require('reactfire');
 var CreateTransaction = require('./create-transaction');
 var UserBalance = require('./user-balance');
+var TransactionsTable = require('./transactions-table');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
 
@@ -12,6 +13,7 @@ module.exports = React.createClass({
       <div className="render-container">
         <h1>Transactions</h1>
         <UserBalance/>
+        <TransactionsTable/>
         <CreateTransaction/>
       </div>
     )
