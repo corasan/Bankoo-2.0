@@ -29,11 +29,11 @@ module.exports = React.createClass({
   render () {
     if (this.state.userBalance < 0) {
       return (
-        <h3 style={{color:"red"}}>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h3>
+        <h3 style={{color:"red"}}>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h3>
       )
     } else {
       return (
-        <h3 >Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}</h3>
+        <h3 >Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h3>
       )
     }
   }

@@ -17,9 +17,15 @@ module.exports = React.createClass({
     this.setState({showModal: true});
   },
   saveTransaction () {
+    var date = new Date();
+    var day = date.getDate(),
+      month = date.getMonth(),
+      year = date.getFullYear();
+
     ref.child('users').child(user.uid).child('transactions').push({
       amount: parseFloat(this.state.amountText),
-      type: this.state.tranType
+      type: this.state.tranType,
+      date: `${month}/${day}/${year}`
     });
     this.setState({amountText: '', tranType: '', showModal: false, disabled: true});
   },

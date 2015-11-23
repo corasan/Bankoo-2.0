@@ -14,6 +14,7 @@ module.exports = React.createClass({
           <Table responsive hover>
             <thead>
               <tr>
+                <th>Date</th>
                 <th>Amount</th>
                 <th>Type</th>
               </tr>
@@ -44,14 +45,16 @@ var TransactionsTable = React.createClass({
         if (tranData[i].type === 'Withdraw'){
           arr.push(
             <tr>
-              <td  style={{color:"#fd4e4e"}}>-{tranData[i].amount}</td>
+              <td>{tranData[i].date}</td>
+              <td  style={{color:"#fd4e4e"}}>-{tranData[i].amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</td>
               <td>{tranData[i].type}</td>
             </tr>
           )
         } else {
           arr.push(
             <tr>
-              <td style={{color:"#3fc515"}}>+{tranData[i].amount}</td>
+              <td>{tranData[i].date}</td>
+              <td style={{color:"#3fc515"}}>+{tranData[i].amount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</td>
               <td>{tranData[i].type}</td>
             </tr>
           )
