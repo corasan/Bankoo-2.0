@@ -33,7 +33,7 @@ module.exports = React.createClass({
     return (
       <div className="render-container">
         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
-          Launch demo modal
+          Transfer Money
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
@@ -51,8 +51,10 @@ module.exports = React.createClass({
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Cancel</Button>
-            <Button onClick={this.saveTransaction} disabled={this.state.disabled}>Done</Button>
+            <center>
+              <Button onClick={this.close}>Cancel</Button>
+              <Button onClick={this.saveTransaction} bsStyle="success" disabled={this.state.disabled}>Done</Button>
+            </center>
           </Modal.Footer>
         </Modal>
       </div>

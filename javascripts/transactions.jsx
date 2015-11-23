@@ -21,7 +21,7 @@ var UserBalance = React.createClass({
   getInitialState () {
     return {userBalance: 0}
   },
-  componentDidMount () {
+  componentWillMount () {
     var that = this;
     var userRef = ref.child('users').child(user.uid);
     userRef.child('transactions').on('value', function(data) {
@@ -29,11 +29,15 @@ var UserBalance = React.createClass({
         total = 0,
         transactions = data.val();
       for (var i in transactions) {
-        arr.push(transactions[i].amount);
+        if (transactions[i].type == "Withdraw") {
+          total -= transactions[i].amount;
+        } else {
+          total += transactions[i].amount;
+        }
       }
-      total = arr.reduce(function(previous, current, index) {
-        return previous + current;
-      });
+      // total = arr.reduce(function(previous, current, index) {
+      //   return previous + current;
+      // });
       userRef.update({balance: total});
       that.setState({userBalance: total});
     });
