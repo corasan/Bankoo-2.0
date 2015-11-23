@@ -1,3 +1,7 @@
+var React = require('react');
+var ref = new Firebase('https://bankoo.firebaseio.com/');
+var user = ref.getAuth();
+
 module.exports = React.createClass({
   getInitialState () {
     return {userBalance: 0}
@@ -16,9 +20,6 @@ module.exports = React.createClass({
           total += transactions[i].amount;
         }
       }
-      // total = arr.reduce(function(previous, current, index) {
-      //   return previous + current;
-      // });
       userRef.update({balance: total});
       that.setState({userBalance: total});
     });

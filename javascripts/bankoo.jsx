@@ -4,7 +4,7 @@ var Router = require('react-router').Router
 var Route = require('react-router').Route
 var Link = require('react-router').Link
 var MyNavbar = require('./my-navbar');
-var Transactions = require('./transactions');
+var Transactions = require('./transactions/transactions');
 var Home = require('./home');
 
 var Bankoo = React.createClass({
