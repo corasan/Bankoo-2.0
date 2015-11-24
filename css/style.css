@@ -6,6 +6,12 @@
     width: 1400px;
   }
 }
+body {
+  background-color: #e5e5e5;
+}
+/*hr {
+  border-width: 3px;
+}*/
 /*li {
   list-style-type: none;
   display: inline;

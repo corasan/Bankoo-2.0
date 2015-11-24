@@ -11,7 +11,7 @@ module.exports = React.createClass({
   getInitialState () {
     var user = ref.getAuth();
     if (user) {
-      return {loggedInUser: user.google.displayName}
+      return {loggedInUser: user.google.displayName, balance: 0}
     } else {
       return {loggedInUser: 'Log in'}
     }
@@ -48,14 +48,20 @@ module.exports = React.createClass({
       scope: 'email'
     });
   },
+  // showBalance () {
+  //   var user = ref.getAuth();
+  //   var userRef = ref.child('users').child(user.uid);
+  //   userRef.once('value', function(data) {
+  //     var userData = data.val();
+  //     this.setState({balance: userData.balance});
+  //   }.bind(this));
+  // },
   componentDidMount () {
-    var that = this;
     var signedUser = ref.getAuth();
-    ref.child('users').child(signedUser.uid).once('value', function(data) {
+    ref.child('users').child(signedUser.uid).on('value', function(data) {
       var userData = data.val();
-      var name = userData.name;
-      that.setState({loggedInUser: name});
-    });
+      this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')});
+    }.bind(this));
   },
   render () {
     var user = ref.getAuth();
@@ -64,7 +70,7 @@ module.exports = React.createClass({
         <Navbar.Collapse>
           <Nav pullRight>
             <li>
-              <a onClick={this.loginButton}>Log in</a>
+              <a href="#"onClick={this.loginButton}>Log in</a>
             </li>
           </Nav>
         </Navbar.Collapse>
@@ -84,7 +90,8 @@ module.exports = React.createClass({
                 <Link to="/transactions">Transactions</Link>
               </li>
               <NavItem>{this.state.loggedInUser}</NavItem>
-              <NavItem onClick={this.logOut}>Log out</NavItem>
+              <NavItem>Balance: ${this.state.balance}</NavItem>
+              <li><Link to="/" onClick={this.logOut}>Log out</Link></li>
             </Nav>
           </Navbar.Collapse>
         </div>

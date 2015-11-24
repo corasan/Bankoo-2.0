@@ -2,27 +2,22 @@ var React = require('react');
 var Firebase = require('firebase');
 var ReactFire = require('reactfire');
 var Table = require('react-bootstrap').Table;
-var Panel = require('react-bootstrap').Panel;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
 
 module.exports = React.createClass({
   render () {
     return (
-      <center>
-        <Panel style={{width:"800px"}}>
-          <Table responsive hover>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <TransactionsTable/>
-          </Table>
-        </Panel>
-      </center>
+      <Table responsive hover>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <TransactionsTable/>
+      </Table>
     )
   }
 
@@ -35,7 +30,7 @@ var TransactionsTable = React.createClass({
       items: []
     }
   },
-  componentDidMount () {
+  componentWillMount () {
     var tranRefs = ref.child('users').child(user.uid).child('transactions');
     this.bindAsObject(tranRefs, 'tran');
     this.firebaseRefs.tran.limitToLast(10).on('value', function(data) {
