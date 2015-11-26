@@ -4,6 +4,8 @@ var Link = require('react-router').Link
 var Navbar = require('react-bootstrap/lib').Navbar;
 var Nav = require('react-bootstrap/lib').Nav;
 var NavItem = require('react-bootstrap/lib').NavItem;
+var NavDropdown = require('react-bootstrap/lib').NavDropdown;
+var MenuItem = require('react-bootstrap/lib').MenuItem;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 
@@ -11,9 +13,9 @@ module.exports = React.createClass({
   getInitialState () {
     var user = ref.getAuth();
     if (user) {
-      return {loggedInUser: user.google.displayName, balance: 0}
+      return {loggedInUser: user.google.displayName, balance: null}
     } else {
-      return {loggedInUser: 'Log in'}
+      return {loggedInUser: ''}
     }
   },
   logOut () {
@@ -30,37 +32,25 @@ module.exports = React.createClass({
           console.log('Logged in');
           that.setState({loggedInUser: name});
         } else {
-          ref.child('users').child(authData.uid).set({
-            provider: authData.provider,
-            name: authData.google.displayName,
-            email: authData.google.email,
-            balance: 0
-          });
+          ref.child('users').child(authData.uid).set({provider: authData.provider, name: authData.google.displayName, email: authData.google.email, balance: 0});
           var signedUser = ref.getAuth();
           ref.child('users').child(signedUser.uid).once('value', function(data) {
             var userData = data.val();
             var name = userData.name;
             that.setState({loggedInUser: name});
           });
+          console.log('Signed Up');
         }
       });
     }, {
       scope: 'email'
     });
   },
-  // showBalance () {
-  //   var user = ref.getAuth();
-  //   var userRef = ref.child('users').child(user.uid);
-  //   userRef.once('value', function(data) {
-  //     var userData = data.val();
-  //     this.setState({balance: userData.balance});
-  //   }.bind(this));
-  // },
   componentDidMount () {
     var signedUser = ref.getAuth();
     ref.child('users').child(signedUser.uid).on('value', function(data) {
       var userData = data.val();
-      this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')});
+      this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
     }.bind(this));
   },
   render () {
@@ -70,7 +60,7 @@ module.exports = React.createClass({
         <Navbar.Collapse>
           <Nav pullRight>
             <li>
-              <a href="#"onClick={this.loginButton}>Log in</a>
+              <a href="#" onClick={this.loginButton}>Log in</a>
             </li>
           </Nav>
         </Navbar.Collapse>
@@ -89,9 +79,17 @@ module.exports = React.createClass({
               <li>
                 <Link to="/transactions">Transactions</Link>
               </li>
-              <NavItem>{this.state.loggedInUser}</NavItem>
-              <NavItem>Balance: ${this.state.balance}</NavItem>
-              <li><Link to="/" onClick={this.logOut}>Log out</Link></li>
+              <NavDropdown title={this.state.loggedInUser} id="basic-nav-dropdown">
+                <MenuItem eventKey="1">Action</MenuItem>
+                <MenuItem eventKey="2">Another action</MenuItem>
+                <MenuItem eventKey="3" active>Active Item</MenuItem>
+                <MenuItem divider/>
+                <MenuItem eventKey="4">Separated link</MenuItem>
+              </NavDropdown>
+              <NavItem>${this.state.balance}</NavItem>
+              <li>
+                <Link to="/" onClick={this.logOut}>Log out</Link>
+              </li>
             </Nav>
           </Navbar.Collapse>
         </div>

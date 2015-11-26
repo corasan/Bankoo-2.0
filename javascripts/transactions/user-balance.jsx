@@ -14,7 +14,7 @@ module.exports = React.createClass({
       var total = 0,
         transactions = data.val();
       for (var i in transactions) {
-        if (transactions[i].type == "Withdraw") {
+        if (transactions[i].type === "Withdraw") {
           total -= transactions[i].amount;
         } else {
           total += transactions[i].amount;
@@ -27,11 +27,11 @@ module.exports = React.createClass({
   render () {
     if (this.state.userBalance < 0) {
       return (
-        <h3 style={{color:"red"}}>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h3>
+        <h4 style={{color:"red"}}>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h4>
       )
     } else {
       return (
-        <h3 >Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h3>
+        <h4 >Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h4>
       )
     }
   }

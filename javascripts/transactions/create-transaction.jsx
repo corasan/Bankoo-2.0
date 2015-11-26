@@ -9,10 +9,10 @@ var user = ref.getAuth();
 
 module.exports = React.createClass({
   getInitialState () {
-    return {amountText: '', tranType: '', showModal: false, disabled: true}
+    return {amountInput: '', tranType: '', showModal: false, disabled: true}
   },
   close () {
-    this.setState({showModal: false, amountText: '', tranType: ''});
+    this.setState({showModal: false, amountInput: '', tranType: ''});
   },
   open () {
     this.setState({showModal: true});
@@ -24,14 +24,14 @@ module.exports = React.createClass({
       year = date.getFullYear();
 
     ref.child('users').child(user.uid).child('transactions').push({
-      amount: parseFloat(this.state.amountText),
+      amount: parseFloat(this.state.amountInput),
       type: this.state.tranType,
       date: `${month}/${day}/${year}`
     });
-    this.setState({amountText: '', tranType: '', showModal: false, disabled: true});
+    this.setState({amountInput: '', tranType: '', showModal: false, disabled: true});
   },
   handleAmountChange (event) {
-    this.setState({amountText: event.target.value});
+    this.setState({amountInput: event.target.value});
   },
   handleSelectChange () {
     this.setState({tranType: this.refs.select.getValue(), disabled: false});
@@ -49,7 +49,7 @@ module.exports = React.createClass({
           </Modal.Header>
           <Modal.Body>
             <form>
-              <Input type="number" addonBefore="$" label="Amount" onChange={this.handleAmountChange} value={this.state.amountText}/>
+              <Input type="text" addonBefore="$" label="Amount" onChange={this.handleAmountChange} value={this.state.amountInput}/>
               <Input type="select" label="Transaction Type" ref="select" onChange={this.handleSelectChange}>
                 <option>Select Type</option>
                 <option>Deposit</option>

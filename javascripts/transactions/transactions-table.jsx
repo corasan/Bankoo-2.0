@@ -16,21 +16,21 @@ module.exports = React.createClass({
             <th>Type</th>
           </tr>
         </thead>
-        <TransactionsTable/>
+        <TableBody/>
       </Table>
     )
   }
 
 });
 
-var TransactionsTable = React.createClass({
+var TableBody = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
     return {
       items: []
     }
   },
-  componentWillMount () {
+  componentDidMount () {
     var tranRefs = ref.child('users').child(user.uid).child('transactions');
     this.bindAsObject(tranRefs, 'tran');
     this.firebaseRefs.tran.limitToLast(10).on('value', function(data) {
