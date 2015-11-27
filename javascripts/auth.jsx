@@ -8,6 +8,7 @@ var NavDropdown = require('react-bootstrap/lib').NavDropdown;
 var MenuItem = require('react-bootstrap/lib').MenuItem;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
+var UserHome = require('./user-home');
 
 module.exports = React.createClass({
   getInitialState () {
@@ -45,6 +46,9 @@ module.exports = React.createClass({
     }, {
       scope: 'email'
     });
+    return (
+      <UserHome/>
+    )
   },
   componentDidMount () {
     var signedUser = ref.getAuth();
@@ -60,7 +64,7 @@ module.exports = React.createClass({
         <Navbar.Collapse>
           <Nav pullRight>
             <li>
-              <a href="#" onClick={this.loginButton}>Log in</a>
+              <a href="#" onClick={this.loginButton} id="login">Log in</a>
             </li>
           </Nav>
         </Navbar.Collapse>
@@ -70,7 +74,7 @@ module.exports = React.createClass({
         <div>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Home</Link>
+              <Link to="/home">Bankoo</Link>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>

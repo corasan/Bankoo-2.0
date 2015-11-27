@@ -6,9 +6,9 @@ var ReactFire = require('reactfire');
 module.exports = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
-    return {userBalance: 0}
+    return {userBalance: 0.00}
   },
-  componentWillMount () {
+  componentDidMount () {
     var userRef = ref.child('users').child(user.uid);
     userRef.child('transactions').on('value', function(data) {
       var total = 0,

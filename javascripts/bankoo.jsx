@@ -5,7 +5,11 @@ var Route = require('react-router').Route
 var Link = require('react-router').Link
 var MyNavbar = require('./my-navbar');
 var Transactions = require('./transactions/transactions');
-var Home = require('./home');
+var UserHome = require('./user-home');
+var WelcomePage = require('./welcome-page');
+var Firebase = require('firebase');
+var ref = new Firebase('https://bankoo.firebaseio.com/');
+var user = ref.getAuth();
 
 var Bankoo = React.createClass({
   render () {
@@ -21,8 +25,9 @@ var Bankoo = React.createClass({
 ReactDOM.render((
   <Router>
     <Route component={Bankoo}>
-      <Route path="/" component={Home}/>
+      <Route path="/" component={UserHome}/>
       <Route path="transactions" component={Transactions}/>
     </Route>
   </Router>
 ), document.getElementById('bankoo-app'));
+      // <Route path="/" component={WelcomePage}/>

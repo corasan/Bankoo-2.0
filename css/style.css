@@ -15,6 +15,7 @@ body {
 }
 .navbar-inverse {
   background-color: #2b3245;
+  border-color: #2b3245;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -68,4 +69,42 @@ body {
 }
 .dropdown-menu .divider {
   background-color: #9d9d9d;
+}
+
+.jumbotron {
+  color: #fff;
+  height: 778px;
+  background-color: #2b3245;
+  margin-bottom: 0px;
+}
+
+.jumbotron h1 {
+  margin-top: 200px;
+  text-align: center;
+}
+.jumbotron p {
+  text-align: center;
+}
+.jumbotron-button {
+  margin-left: 600px;
+  margin-top: 40px;
+}
+.jumbotron-button > a {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  padding-left: 50px;
+  padding-right: 50px;
+  box-shadow: 0px 5px 10px -1px black !important;
+  background-color: #0086c7;
+  color: #fff;
+  text-decoration: none;
+  font-size: 120%
+}
+.jumbotron-button>a:hover, .jumbotron-button>a:focus {
+  background-color: #1da5e7;
+}
+.bankoo-info {
+  height: 700px;
+  position: fixed;
+  background-color: #fff;
 }

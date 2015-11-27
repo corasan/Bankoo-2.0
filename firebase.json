@@ -1,0 +1,9 @@
+{
+  "firebase": "bankoo",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
