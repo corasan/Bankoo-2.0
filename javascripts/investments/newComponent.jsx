@@ -2,7 +2,7 @@ var React = require('react');
 
 var PanelComponent = React.createClass({
   propTypes: {
-    element: React.Proptypes.object
+    element: React.PropTypes.array
   },
   getInitialState() {
     return {

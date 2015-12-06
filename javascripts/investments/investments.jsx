@@ -8,7 +8,7 @@ var Grid = require('react-bootstrap').Grid;
 var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
 var Button = require('react-bootstrap').Button;
-var PanelComponent = require('react-bootstrap');
+var PanelComponent = require('./newComponent');
 
 
 module.exports = React.createClass({
