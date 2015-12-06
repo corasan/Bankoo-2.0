@@ -40,7 +40,7 @@ body {
 }
 .btn {
   border-radius: 0px;
-  box-shadow: 0px 5px 10px -1px #a7a4a4;
+  box-shadow: 0px 4px 10px -3px #a7a4a4;
 
 }
 .panel {
@@ -108,3 +108,22 @@ body {
   position: fixed;
   background-color: #fff;
 }
+div.image {
+  width: 96px;
+  display: inline-block;
+}
+div.panel-content {
+  display: inline-block;
+  margin-left: 20px;
+}
+img {
+  margin-top: -100px;
+}
+.panels-width {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+/*.move-col {
+  margin-left: 150px;
+  margin-top: 20px;
+}*/
