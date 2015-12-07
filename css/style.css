@@ -117,12 +117,21 @@ div.panel-content {
   margin-left: 20px;
 }
 img {
-  margin-top: -100px;
+  margin-top: -180px;
 }
 .panels-width {
   margin-left: 200px;
   margin-right: 200px;
 }
+a {
+  cursor: pointer;
+}
+.icon {
+  margin-top: 0;
+}
+/*div.buy-stock {
+  margin-top: 20px;
+}*/
 /*.move-col {
   margin-left: 150px;
   margin-top: 20px;

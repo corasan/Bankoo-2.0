@@ -5,14 +5,9 @@ var user = ref.getAuth();
 
 module.exports = React.createClass({
   getInitialState () {
-  //   var FEED_ITEMS = [
-  //     {name: 'one', price: 10, value: 5, owned: 0},
-  //     {name: 'two', price: 15, value: 8, owned: 0}
-  //   ];
     return {
       balance : 0,
       showModal: false
-  //     items: FEED_ITEMS
     }
   },
   componentWillMount () {

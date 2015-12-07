@@ -8,7 +8,9 @@ var Grid = require('react-bootstrap').Grid;
 var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
 var Button = require('react-bootstrap').Button;
-var PanelComponent = require('./newComponent');
+var PanelComponent = require('react-bootstrap');
+var InvestmentList = require('./investmentsList');
+var InvestmentItems = require('./investmentItems');
 
 
 module.exports = React.createClass({
@@ -18,22 +20,11 @@ module.exports = React.createClass({
       items: []
     }
   },
-  handleClick () {
-    console.log('buttttoooonnn');
-    this.setState({buy: this.state.buy+1});
-  },
-  // componentWillMount () {
-  // },
-  componentDidMount () {
-    this.bindAsObject(ref.child('users').child(user.uid).child('investments'), 'investments');
-    this.firebaseRefs.investments.once('value', function(data) {
+  componentWillMount () {
+    this.bindAsArray(ref.child('users').child(user.uid).child('investments'), 'items');
+    this.firebaseRefs.items.on('value', function(data) {
       var invData = data.val();
-      var arr = invData.map(function(element,i) {
-        return (
-          <PanelComponent key={i} element={element}/>
-        )
-      }.bind(this));
-      this.setState({items: arr});
+      this.setState({items: invData});
     }.bind(this));
   },
   render () {
@@ -41,9 +32,7 @@ module.exports = React.createClass({
       <div className="render-container">
         <Grid>
           <Row>
-            <div className="panels-width">
-              {this.state.items}
-            </div>
+            <InvestmentList items={this.state.items} />
           </Row>
         </Grid>
       </div>
