@@ -14,21 +14,23 @@ var InvestmentItems = React.createClass({
       buy: 0
     }
   },
-  componentWillMount () {
-  },
   handleAddButton () {
     this.setState({buy: this.state.buy+1});
   },
   handleSubtractButton () {
     this.setState({buy: this.state.buy-1});
   },
-  buyButton () {
+  componentWillMount () {
     this.bindAsObject(ref.child(user.uid).child('investments'), 'investments');
-    // this.firebaseRefs.investments.on('value', function(data) {
-    //   var invData = data.val();
-    //
-    // }.bind(this));
-    this.firebaseRefs.investments.update({owned: this.props.owned + this.state.buy});
+  },
+  buyButton () {
+    this.firebaseRefs.investments.once('value', function(data) {
+      var invData = data.val();
+      console.log("invData: ", invData);
+      var currentInvestment = ref.child(user.uid).child("investments").child(this.props.index + "")
+      currentInvestment.update({owned: invData[this.props.index].owned + this.state.buy});
+    }.bind(this));
+    this.setState({buy: 0});
   },
   render: function() {
     return (
