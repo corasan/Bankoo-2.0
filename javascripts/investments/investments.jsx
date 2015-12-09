@@ -31,7 +31,7 @@ module.exports = React.createClass({
     return (
       <div className="render-container">
         <Grid>
-          <h2>Market</h2>
+          <h2 className="page-title">Market</h2>
           <hr/>
           <Row>
             <InvestmentList items={this.state.items} />
