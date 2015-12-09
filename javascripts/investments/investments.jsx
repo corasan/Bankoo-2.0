@@ -2,7 +2,6 @@ var React = require('react');
 var Firebase = require('firebase');
 var ReactFire = require('reactfire');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var user = ref.getAuth();
 var Panel = require('react-bootstrap').Panel;
 var Grid = require('react-bootstrap').Grid;
 var Row = require('react-bootstrap').Row;
@@ -21,6 +20,7 @@ module.exports = React.createClass({
     }
   },
   componentWillMount () {
+    var user = ref.getAuth();
     this.bindAsArray(ref.child('users').child(user.uid).child('investments'), 'items');
     this.firebaseRefs.items.on('value', function(data) {
       var invData = data.val();
@@ -31,6 +31,8 @@ module.exports = React.createClass({
     return (
       <div className="render-container">
         <Grid>
+          <h2>Market</h2>
+          <hr/>
           <Row>
             <InvestmentList items={this.state.items} />
           </Row>

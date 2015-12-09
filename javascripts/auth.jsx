@@ -16,7 +16,7 @@ module.exports = React.createClass({
   getInitialState () {
     var user = ref.getAuth();
     if (user) {
-      return {loggedInUser: user.google.displayName, balance: null}
+      return {loggedInUser: user.google.displayName, balance: 0}
     } else {
       return {loggedInUser: ''}
     }
@@ -28,12 +28,12 @@ module.exports = React.createClass({
   loginButton () {
     var that = this;
     ref.authWithOAuthPopup('google', function(error, authData) {
-      ref.child('users').child(authData.uid).once('value', function(data) {
+      ref.child('users').child(authData.uid).on('value', function(data) {
         var FEED_ITEMS = [
-            {name: 'Ice Cream Truck', price: 10, earning: 2.10, owned: 0,
+            {name: 'Ice Cream Truck', price: 10, earning: 0.85, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/ice_cream_cone-96.png" title="Ice Cream Cone" width="96">'
             },
-            {name: 'Taco Truck', price: 50, earning: 4.20, owned: 0,
+            {name: 'Taco Truck', price: 50, earning: 2.20, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/taco-96.png" title="Taco" width="96">'
             },
             {name: 'Intel Corporation', price: 148, earning: 34.04, owned: 0,
@@ -48,21 +48,22 @@ module.exports = React.createClass({
             {name: 'Google', price: 1250, earning: 768.20, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Logos/google_logo-96.png" title="Google Logo" width="96">'
             },
-            {name: 'Nucear Power Plant', price: 900560, earning: 4700, owned: 0,
+            {name: 'Nucear Power Plant', price: 900560, earning: 2700, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/nuclear_power_plant-96.png" title="Nuclear Power Plant" width="96">'
             },
-            {name: 'Biotech', price: 1500000, earning: 7080, owned: 0,
+            {name: 'Biotech', price: 1500000, earning: 5280, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/biotech-96.png" title="Biotech" width="96">'
             },
-            {name: 'Alien Technology', price: 50000000, earning: 25000, owned: 0,
+            {name: 'Alien Technology', price: 50000000, earning: 22000, owned: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Cinema/sci-fi-96.png" title="Sci-Fi" width="96">'
             },
         ];
         if (data.exists()) {
           var userData = data.val();
-          var name = userData.name;
+          var name = userData.name,
+            balance = userData.balance;
           console.log('Logged in');
-          that.setState({loggedInUser: name});
+          that.setState({loggedInUser: name, balance: balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
         } else {
           ref.child('users').child(authData.uid).set({
             provider: authData.provider,
@@ -72,10 +73,11 @@ module.exports = React.createClass({
             investments: FEED_ITEMS
           });
           var signedUser = ref.getAuth();
-          ref.child('users').child(signedUser.uid).once('value', function(data) {
+          ref.child('users').child(signedUser.uid).on('value', function(data) {
             var userData = data.val();
-            var name = userData.name;
-            that.setState({loggedInUser: name});
+            var name = userData.name,
+              balance = userData.balance;
+            that.setState({loggedInUser: name, balance: balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
           });
           console.log('Signed Up');
         }
@@ -93,7 +95,7 @@ module.exports = React.createClass({
   },
   render () {
     var user = ref.getAuth();
-    if (!user) {
+    if (!user && user === null) {
       return (
         <Navbar.Collapse>
           <Nav pullRight>
@@ -104,7 +106,6 @@ module.exports = React.createClass({
         </Navbar.Collapse>
       )
     } else {
-      var x = '<img src="https://maxcdn.icons8.com/Color/PNG/24/Ecommerce/expensive_2-24.png" title="Expensive 2" width="24">';
       return (
         <div>
           <Navbar.Header>
