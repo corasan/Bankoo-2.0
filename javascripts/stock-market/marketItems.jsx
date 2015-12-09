@@ -7,7 +7,7 @@ var PropTypes = React.PropTypes;
 var ref = new Firebase('https://bankoo.firebaseio.com/users');
 var user = ref.getAuth();
 
-var InvestmentItems = React.createClass({
+var MarketItems = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
     return {
@@ -63,4 +63,4 @@ var InvestmentItems = React.createClass({
 
 });
 
-module.exports = InvestmentItems;
+module.exports = MarketItems;

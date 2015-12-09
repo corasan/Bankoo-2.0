@@ -9,8 +9,6 @@ var MenuItem = require('react-bootstrap/lib').MenuItem;
 var LinkContainer = require('react-router-bootstrap').LinkContainer;
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var UserHome = require('./user-home');
-// var BankAccount = require('./bank-account/bank-account');
-// var BankAccount = require('./accounts/investments');
 
 module.exports = React.createClass({
   getInitialState () {
