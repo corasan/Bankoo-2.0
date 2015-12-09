@@ -8,7 +8,7 @@ var Row = require('react-bootstrap').Row;
 var Col = require('react-bootstrap').Col;
 var Button = require('react-bootstrap').Button;
 var PanelComponent = require('react-bootstrap');
-var MarketList = require('./marketsList');
+var MarketList = require('./marketList');
 
 module.exports = React.createClass({
   mixins: [ReactFire],

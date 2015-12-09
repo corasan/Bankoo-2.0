@@ -7,7 +7,7 @@ var MarketList = React.createClass({
   render () {
     var marketItems = this.props.items.map(function(item, i) {
       return(
-        <MarketItems key={i} index={i} name={item.name} price={item.price} earning={item.earning} owned={item.owned} image={item.image}/>
+        <MarketItems key={i} index={i} name={item.name} price={item.price} earning={item.earning} shares={item.shares} image={item.image}/>
       );
     });
     return (

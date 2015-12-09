@@ -8,7 +8,7 @@ var Transactions = require('./transactions/transactions');
 var UserHome = require('./user-home');
 var BankAccount = require('./bank-account/bank-account');
 var WelcomePage = require('./welcome-page');
-var Investments = require('./investments/investments');
+var StockMarket = require('./stock-market/stockMarket');
 var Firebase = require('firebase');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
@@ -28,7 +28,7 @@ ReactDOM.render((
   <Router>
     <Route component={Bankoo}>
       <Route path="/" component={UserHome}/>
-      <Route path="investments" component={Investments}/>
+      <Route path="market" component={StockMarket}/>
     </Route>
   </Router>
 ), document.getElementById('bankoo-app'));

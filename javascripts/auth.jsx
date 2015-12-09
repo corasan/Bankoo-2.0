@@ -28,31 +28,31 @@ module.exports = React.createClass({
     ref.authWithOAuthPopup('google', function(error, authData) {
       ref.child('users').child(authData.uid).on('value', function(data) {
         var FEED_ITEMS = [
-            {name: 'Ice Cream Truck', price: 10, earning: 0.85, owned: 0,
+            {name: 'Ice Cream Truck', price: 10, earning: 0.85, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/ice_cream_cone-96.png" title="Ice Cream Cone" width="96">'
             },
-            {name: 'Taco Truck', price: 50, earning: 2.20, owned: 0,
+            {name: 'Taco Truck', price: 50, earning: 2.20, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/taco-96.png" title="Taco" width="96">'
             },
-            {name: 'Intel Corporation', price: 148, earning: 34.04, owned: 0,
+            {name: 'Intel Corporation', price: 148, earning: 34.04, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/processor-96.png" title="Processor" width="96">'
             },
-            {name: 'Facebook', price: 400, earning: 104.38, owned: 0,
+            {name: 'Facebook', price: 400, earning: 104.38, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Social_Networks/facebook-96.png" title="Facebook" width="96">'
             },
-            {name: 'Apple', price: 450, earning: 115.20, owned: 0,
+            {name: 'Apple', price: 450, earning: 115.20, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Operating_Systems/mac_os_copyrighted-96.png" title="Mac OS" width="96">'
             },
-            {name: 'Google', price: 1250, earning: 768.20, owned: 0,
+            {name: 'Google', price: 1250, earning: 768.20, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Logos/google_logo-96.png" title="Google Logo" width="96">'
             },
-            {name: 'Nucear Power Plant', price: 900560, earning: 2700, owned: 0,
+            {name: 'Nucear Power Plant', price: 900560, earning: 2700, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/nuclear_power_plant-96.png" title="Nuclear Power Plant" width="96">'
             },
-            {name: 'Biotech', price: 1500000, earning: 5280, owned: 0,
+            {name: 'Biotech', price: 1500000, earning: 5280, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/biotech-96.png" title="Biotech" width="96">'
             },
-            {name: 'Alien Technology', price: 50000000, earning: 22000, owned: 0,
+            {name: 'Alien Technology', price: 50000000, earning: 22000, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Cinema/sci-fi-96.png" title="Sci-Fi" width="96">'
             },
         ];
@@ -68,6 +68,7 @@ module.exports = React.createClass({
             name: authData.google.displayName,
             email: authData.google.email,
             balance: 200,
+            earnings: 0,
             investments: FEED_ITEMS
           });
           var signedUser = ref.getAuth();
@@ -115,7 +116,7 @@ module.exports = React.createClass({
           <Navbar.Collapse>
             <Nav pullRight>
               <li>
-                <Link to="/investments">Investments</Link>
+                <Link to="/market">Stock Market</Link>
               </li>
               <NavDropdown title={this.state.loggedInUser} id="basic-nav-dropdown">
                 <MenuItem eventKey="1">Action</MenuItem>
