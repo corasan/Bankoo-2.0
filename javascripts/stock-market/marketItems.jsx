@@ -38,28 +38,14 @@ var MarketItems = React.createClass({
           userRef.update({balance: userData.balance - total});
           userRef.child('portfolio').child(currentInvData.name).set({
             shares: currentInvData.shares,
-            earnings: currentInvData.shares * currentInvData.price
+            earnings: currentInvData.shares * currentInvData.earning,
+            value: 0
           });
         }.bind(this));
       }.bind(this));
     }.bind(this));
-    // this.pushToPortfolio;
     this.setState({buy: 0});
   },
-  // pushToPortfolio () {
-  //   console.log('inside pushToPortfolio');
-  //   this.bindAsObject(ref.child(user.uid).child('investments'), 'investments');
-  //   this.firebaseRefs.investments.on('value', function(data) {
-  //     var invData = data.val();
-  //     if (invData.shares > 0) {
-  //       ref.child(user.uid).child('portfolio').set({
-  //         name: invData.name,
-  //         shares: invData.shares,
-  //         earnings: invData.shares * invData.price
-  //       });
-  //     }
-  //   });
-  // },
   render: function() {
     return (
       <Col md={6}>

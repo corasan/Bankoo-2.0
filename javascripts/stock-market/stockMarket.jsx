@@ -9,6 +9,7 @@ var Col = require('react-bootstrap').Col;
 var Button = require('react-bootstrap').Button;
 var PanelComponent = require('react-bootstrap');
 var MarketList = require('./marketList');
+var Earnings = require('./earnings');
 
 module.exports = React.createClass({
   mixins: [ReactFire],
@@ -30,6 +31,7 @@ module.exports = React.createClass({
       <div className="render-container">
         <Grid>
           <h2 className="page-title">Market</h2>
+          <Earnings/>
           <hr/>
           <Row>
             <MarketList items={this.state.items} />

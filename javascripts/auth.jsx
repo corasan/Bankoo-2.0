@@ -34,13 +34,13 @@ module.exports = React.createClass({
             {name: 'Taco Truck', price: 50, earning: 2.20, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/taco-96.png" title="Taco" width="96">'
             },
-            {name: 'Intel Corporation', price: 148, earning: 34.04, shares: 0,
+            {name: 'Intel Corporation', price: 568.87, earning: 34.04, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Industry/processor-96.png" title="Processor" width="96">'
             },
-            {name: 'Facebook', price: 400, earning: 104.38, shares: 0,
+            {name: 'Facebook', price: 1352.45, earning: 104.38, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Social_Networks/facebook-96.png" title="Facebook" width="96">'
             },
-            {name: 'Apple', price: 450, earning: 115.20, shares: 0,
+            {name: 'Apple', price: 1548.67, earning: 115.20, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Operating_Systems/mac_os_copyrighted-96.png" title="Mac OS" width="96">'
             },
             {name: 'Google', price: 1250, earning: 768.20, shares: 0,
