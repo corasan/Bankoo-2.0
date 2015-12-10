@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactFire = require('reactfire');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var user = ref.getAuth();
 
 var Earnings = React.createClass({
   mixins: [ReactFire],
@@ -9,23 +8,29 @@ var Earnings = React.createClass({
     return {totalEarnings: 0}
   },
   componentWillMount () {
-    this.bindAsObject(ref.child('users').child(user.uid).child('portfolio'), 'portfolio');
+    var user = ref.getAuth();
+    this.bindAsObject(ref.child('users').child(this.props.useruid).child('portfolio'), 'portfolio');
   },
   getEarnings () {
-    ref.child('users').child(user.uid).once('value', function(userData) {
-      this.firebaseRefs.portfolio.on('value', function(data) {
-        var userAttr = userData.val();
-        if (data.exists()) {
-          var portData = data.val();
-          var total = 0;
-          for (var i in portData) {
-            total += portData[i].earnings
-          }
-          this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
-          ref.child('users').child(user.uid).update({earnings: this.state.totalEarnings.toFixed(2)});
+    var user = ref.getAuth();
+    if (user) {
+      ref.child('users').child(this.props.useruid).once('value', function(userData) {
+        if (this.firebaseRefs.portfolio) {
+          this.firebaseRefs.portfolio.on('value', function(data) {
+            var userAttr = userData.val();
+            if (data.exists()) {
+              var portData = data.val();
+              var total = 0;
+              for (var i in portData) {
+                total += portData[i].earnings
+              }
+              this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
+              ref.child('users').child(this.props.useruid).update({earnings: this.state.totalEarnings.toFixed(2)});
+            }
+          }.bind(this));
         }
       }.bind(this));
-    }.bind(this));
+    }
   },
   componentDidMount () {
     this.interval = setInterval(this.getEarnings, 1000);

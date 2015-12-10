@@ -34,12 +34,13 @@ var MarketItems = React.createClass({
         var userData = snap.val();
         currentInvestment.on('value', function(invSnap) {
           var currentInvData = invSnap.val();
-          var total = currentInvData.price * this.state.buy;
-          userRef.update({balance: userData.balance - total});
+          var priceTotal = currentInvData.price * this.state.buy;
+          console.log(priceTotal);
           userRef.child('portfolio').child(currentInvData.name).set({
             shares: currentInvData.shares,
             earnings: currentInvData.shares * currentInvData.earning
           });
+          userRef.update({balance: userData.balance - priceTotal});
         }.bind(this));
       }.bind(this));
     }.bind(this));

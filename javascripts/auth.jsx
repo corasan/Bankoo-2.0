@@ -85,14 +85,12 @@ module.exports = React.createClass({
       scope: 'email'
     });
   },
-  componentWillMount () {
+  componentDidMount () {
     var signedUser = ref.getAuth();
-    if (signedUser && signedUser !== null) {
-      ref.child('users').child(signedUser.uid).once('value', function(data) {
-        var userData = data.val();
-        this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
-      }.bind(this));
-    }
+    ref.child('users').child(signedUser.uid).on('value', function(data) {
+      var userData = data.val();
+      this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
+    }.bind(this));
   },
   render () {
     var user = ref.getAuth();

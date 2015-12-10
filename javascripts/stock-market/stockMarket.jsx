@@ -10,6 +10,7 @@ var Button = require('react-bootstrap').Button;
 var PanelComponent = require('react-bootstrap');
 var MarketList = require('./marketList');
 var Earnings = require('./earnings');
+var user = ref.getAuth();
 
 module.exports = React.createClass({
   mixins: [ReactFire],
@@ -20,26 +21,25 @@ module.exports = React.createClass({
     }
   },
   componentWillMount () {
-    var user = ref.getAuth();
     this.bindAsArray(ref.child('users').child(user.uid).child('investments'), 'items');
     this.firebaseRefs.items.on('value', function(data) {
       var invData = data.val();
       this.setState({items: invData});
     }.bind(this));
   },
-  componentDidMount () {
-    var user = ref.getAuth();
-    ref.child('users').child(user.uid).once('value', function(data) {
-      var userData = data.val();
-      this.setState({earnings: userData.earnings});
-    }.bind(this));
-  },
+  // componentDidMount () {
+  //   var user = ref.getAuth();
+  //   ref.child('users').child(user.uid).once('value', function(data) {
+  //     var userData = data.val();
+  //     this.setState({earnings: userData.earnings});
+  //   }.bind(this));
+  // },
   render () {
     return (
       <div className="render-container">
         <Grid>
           <h2 className="page-title">Market</h2>
-          <Earnings/>
+          <Earnings useruid={user.uid}/>
           <hr/>
           <Row>
             <MarketList items={this.state.items} />
