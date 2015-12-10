@@ -11,7 +11,6 @@ var WelcomePage = require('./welcome-page');
 var StockMarket = require('./stock-market/stockMarket');
 var Firebase = require('firebase');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
-var user = ref.getAuth();
 
 var Bankoo = React.createClass({
   render () {

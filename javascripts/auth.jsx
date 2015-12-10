@@ -26,7 +26,7 @@ module.exports = React.createClass({
   loginButton () {
     var that = this;
     ref.authWithOAuthPopup('google', function(error, authData) {
-      ref.child('users').child(authData.uid).on('value', function(data) {
+      ref.child('users').child(authData.uid).once('value', function(data) {
         var FEED_ITEMS = [
             {name: 'Ice Cream Truck', price: 10, earning: 0.85, shares: 0,
               image: '<img src="https://maxcdn.icons8.com/Color/PNG/96/Food/ice_cream_cone-96.png" title="Ice Cream Cone" width="96">'
@@ -72,7 +72,7 @@ module.exports = React.createClass({
             investments: FEED_ITEMS
           });
           var signedUser = ref.getAuth();
-          ref.child('users').child(signedUser.uid).on('value', function(data) {
+          ref.child('users').child(signedUser.uid).once('value', function(data) {
             var userData = data.val();
             var name = userData.name,
               balance = userData.balance;
@@ -87,10 +87,12 @@ module.exports = React.createClass({
   },
   componentWillMount () {
     var signedUser = ref.getAuth();
-    ref.child('users').child(signedUser.uid).on('value', function(data) {
-      var userData = data.val();
-      this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
-    }.bind(this));
+    if (signedUser && signedUser !== null) {
+      ref.child('users').child(signedUser.uid).once('value', function(data) {
+        var userData = data.val();
+        this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
+      }.bind(this));
+    }
   },
   render () {
     var user = ref.getAuth();

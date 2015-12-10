@@ -1,34 +1,38 @@
 var React = require('react');
 var ReactFire = require('reactfire');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
+var user = ref.getAuth();
 
 var Earnings = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
-    return {totalEarnings: 0} //MAKE THIS THE MONEY I ALREADY MADE
+    return {totalEarnings: 0}
   },
   componentWillMount () {
-    var user = ref.getAuth();
     this.bindAsObject(ref.child('users').child(user.uid).child('portfolio'), 'portfolio');
   },
   getEarnings () {
-    var user = ref.getAuth();
-    this.firebaseRefs.portfolio.on('value', function(data) {
-      var portData = data.val();
-      var total = 0;
-      for (var i in portData) {
-        total += portData[i].earnings
-      }
-      ref.child('users').child(user.uid).update({earnings: parseFloat(setInterval(total, 2000))}); // THIS SHOULD BE THE MONEY I EARNED + CURRENT EARNINGS PER SECONDS
-      this.setState({totalEarnings: parseFloat(setInterval(total, 2000))}); //EARNINGS INCREASE
+    ref.child('users').child(user.uid).once('value', function(userData) {
+      this.firebaseRefs.portfolio.on('value', function(data) {
+        var userAttr = userData.val();
+        if (data.exists()) {
+          var portData = data.val();
+          var total = 0;
+          for (var i in portData) {
+            total += portData[i].earnings
+          }
+          this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
+          ref.child('users').child(user.uid).update({earnings: this.state.totalEarnings.toFixed(2)});
+        }
+      }.bind(this));
     }.bind(this));
   },
   componentDidMount () {
-    this.interval = setInterval(this.getEarnings, 2000);
+    this.interval = setInterval(this.getEarnings, 1000);
   },
   render () {
     return (
-      <h1>Stock earnings: {this.state.totalEarnings}</h1>
+      <h1>Stock earnings: ${this.state.totalEarnings.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h1>
     )
   }
 });

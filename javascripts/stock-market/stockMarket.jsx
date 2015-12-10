@@ -15,7 +15,8 @@ module.exports = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
     return {
-      items: []
+      items: [],
+      earnings: 0
     }
   },
   componentWillMount () {
@@ -24,6 +25,13 @@ module.exports = React.createClass({
     this.firebaseRefs.items.on('value', function(data) {
       var invData = data.val();
       this.setState({items: invData});
+    }.bind(this));
+  },
+  componentDidMount () {
+    var user = ref.getAuth();
+    ref.child('users').child(user.uid).once('value', function(data) {
+      var userData = data.val();
+      this.setState({earnings: userData.earnings});
     }.bind(this));
   },
   render () {

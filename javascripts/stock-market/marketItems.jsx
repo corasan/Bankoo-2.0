@@ -38,8 +38,7 @@ var MarketItems = React.createClass({
           userRef.update({balance: userData.balance - total});
           userRef.child('portfolio').child(currentInvData.name).set({
             shares: currentInvData.shares,
-            earnings: currentInvData.shares * currentInvData.earning,
-            value: 0
+            earnings: currentInvData.shares * currentInvData.earning
           });
         }.bind(this));
       }.bind(this));
