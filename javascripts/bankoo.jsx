@@ -7,7 +7,6 @@ var MyNavbar = require('./my-navbar');
 var Transactions = require('./transactions/transactions');
 var UserHome = require('./user-home');
 var BankAccount = require('./bank-account/bank-account');
-var WelcomePage = require('./welcome-page');
 var StockMarket = require('./stock-market/stockMarket');
 var Firebase = require('firebase');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
