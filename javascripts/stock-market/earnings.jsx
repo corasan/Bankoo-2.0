@@ -4,14 +4,14 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 
 var Earnings = React.createClass({
   mixins: [ReactFire],
-  getInitialState: function(){
+  getInitialState () {
     return {totalEarnings: 0}
   },
-  componentWillMount: function(){
+  componentWillMount () {
     var user = ref.getAuth();
     this.bindAsObject(ref.child('users').child(this.props.useruid).child('portfolio'), 'portfolio');
   },
-  getEarnings: function(){
+  getEarnings () {
     var user = ref.getAuth();
     if (user && this.firebaseRefs.portfolio) {
       ref.child('users').child(this.props.useruid).once('value', function(userData) {
@@ -30,10 +30,10 @@ var Earnings = React.createClass({
       }.bind(this));
     }
   },
-  componentDidMount: function(){
+  componentDidMount () {
     this.interval = setInterval(this.getEarnings, 1000);
   },
-  render: function(){
+  render () {
     return (
       <h1>Stock earnings: ${this.state.totalEarnings.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h1>
     )

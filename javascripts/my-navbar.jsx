@@ -5,7 +5,7 @@ var Auth = require('./auth');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 
 module.exports = React.createClass({
-  render: function() {
+  render () {
     return (
       <Navbar inverse className="navbar-fixed-top">
         <Auth/>

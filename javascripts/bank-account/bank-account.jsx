@@ -4,13 +4,13 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 var user = ref.getAuth();
 
 module.exports = React.createClass({
-  getInitialState: function() {
+  getInitialState () {
     return {
       balance : 0,
       showModal: false
     }
   },
-  componentWillMount: function() {
+  componentWillMount () {
     var userRef = ref.child('users').child(user.uid);
     userRef.on('value', function(data) {
       var userData = data.val();
@@ -18,13 +18,13 @@ module.exports = React.createClass({
       this.setState({balance: balance});
     }.bind(this));
   },
-  transferMoney: function() {
+  transferMoney () {
     var userRef = ref.child('users').child(user.uid);
     userRef.on('value', function(data) {
 
     }.bind(this));
   },
-  render: function() {
+  render () {
     return (
       <div className="render-container">
         <h1>Balance: ${this.state.balance}</h1>

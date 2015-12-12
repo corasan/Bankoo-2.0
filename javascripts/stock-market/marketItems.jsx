@@ -9,22 +9,22 @@ var user = ref.getAuth();
 
 var MarketItems = React.createClass({
   mixins: [ReactFire],
-  getInitialState: function() {
+  getInitialState () {
     return {
       buy: 0,
       disabled: true
     }
   },
-  handleAddButton: function() {
+  handleAddButton () {
     this.setState({buy: this.state.buy+1});
   },
-  handleSubtractButton: function() {
+  handleSubtractButton () {
     this.setState({buy: this.state.buy-1});
   },
-  componentWillMount: function() {
+  componentWillMount () {
     this.bindAsObject(ref.child(user.uid).child('investments'), 'investments');
   },
-  buyButton: function() {
+  buyButton () {
     this.firebaseRefs.investments.once('value', function(data) {
       var invData = data.val();
       var currentInvestment = ref.child(user.uid).child("investments").child(this.props.index);
@@ -46,7 +46,7 @@ var MarketItems = React.createClass({
     }.bind(this));
     this.setState({buy: 0});
   },
-  render: function() {
+  render () {
     return (
       <Col md={6}>
         <Panel className="move-panel">

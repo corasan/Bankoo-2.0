@@ -14,27 +14,27 @@ var user = ref.getAuth();
 
 module.exports = React.createClass({
   mixins: [ReactFire],
-  getInitialState: function() {
+  getInitialState () {
     return {
       items: [],
       earnings: 0
     }
   },
-  componentWillMount: function() {
+  componentWillMount () {
     this.bindAsArray(ref.child('users').child(user.uid).child('investments'), 'items');
     this.firebaseRefs.items.on('value', function(data) {
       var invData = data.val();
       this.setState({items: invData});
     }.bind(this));
   },
-  // componentDidMount: function() {
+  // componentDidMount () {
   //   var user = ref.getAuth();
   //   ref.child('users').child(user.uid).once('value', function(data) {
   //     var userData = data.val();
   //     this.setState({earnings: userData.earnings});
   //   }.bind(this));
   // },
-  render: function() {
+  render () {
     return (
       <div className="render-container">
         <Grid>

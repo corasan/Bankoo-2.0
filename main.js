@@ -20,7 +20,7 @@ module.exports = React.createClass({displayName: "exports",
       return {loggedInUser: ''}
     }
   },
-
+  
   logOut: function() {
     ref.unauth();
     this.setState({loggedInUser: 'Log in'});
@@ -98,9 +98,9 @@ module.exports = React.createClass({displayName: "exports",
     var user = ref.getAuth();
     if (!user && user === null) {
       return (
-        React.createElement(Navbar.Collapse, null,
-          React.createElement(Nav, {pullRight: true},
-            React.createElement("li", null,
+        React.createElement(Navbar.Collapse, null, 
+          React.createElement(Nav, {pullRight: true}, 
+            React.createElement("li", null, 
               React.createElement("a", {href: "#", onClick: this.loginButton, id: "login"}, "Log in")
             )
           )
@@ -108,26 +108,26 @@ module.exports = React.createClass({displayName: "exports",
       )
     } else {
       return (
-        React.createElement("div", null,
-          React.createElement(Navbar.Header, null,
-            React.createElement(Navbar.Brand, null,
+        React.createElement("div", null, 
+          React.createElement(Navbar.Header, null, 
+            React.createElement(Navbar.Brand, null, 
               React.createElement(Link, {to: "/"}, "Bankoo")
-            ),
+            ), 
             React.createElement(Navbar.Toggle, null)
-          ),
-          React.createElement(Navbar.Collapse, null,
-            React.createElement(Nav, {pullRight: true},
-              React.createElement("li", null,
+          ), 
+          React.createElement(Navbar.Collapse, null, 
+            React.createElement(Nav, {pullRight: true}, 
+              React.createElement("li", null, 
                 React.createElement(Link, {to: "/market"}, "Stock Market")
-              ),
-              React.createElement(NavDropdown, {title: this.state.loggedInUser, id: "basic-nav-dropdown"},
-                React.createElement(MenuItem, {eventKey: "1"}, "Action"),
-                React.createElement(MenuItem, {eventKey: "2"}, "Another action"),
-                React.createElement(MenuItem, {eventKey: "3", active: true}, "Active Item"),
+              ), 
+              React.createElement(NavDropdown, {title: this.state.loggedInUser, id: "basic-nav-dropdown"}, 
+                React.createElement(MenuItem, {eventKey: "1"}, "Action"), 
+                React.createElement(MenuItem, {eventKey: "2"}, "Another action"), 
+                React.createElement(MenuItem, {eventKey: "3", active: true}, "Active Item"), 
                 React.createElement(MenuItem, {eventKey: "4"}, "Separated link")
-              ),
-              React.createElement(NavItem, null, "$", this.state.balance),
-              React.createElement("li", null,
+              ), 
+              React.createElement(NavItem, null, "$", this.state.balance), 
+              React.createElement("li", null, 
                 React.createElement(Link, {to: "/", onClick: this.logOut}, "Log out")
               )
             )
@@ -170,7 +170,7 @@ module.exports = React.createClass({displayName: "exports",
   },
   render: function() {
     return (
-      React.createElement("div", {className: "render-container"},
+      React.createElement("div", {className: "render-container"}, 
         React.createElement("h1", null, "Balance: $", this.state.balance)
       )
     )
@@ -195,8 +195,8 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 var Bankoo = React.createClass({displayName: "Bankoo",
   render: function() {
     return (
-      React.createElement("div", null,
-        React.createElement(MyNavbar, null),
+      React.createElement("div", null, 
+        React.createElement(MyNavbar, null), 
         this.props.children
       )
     )
@@ -204,9 +204,9 @@ var Bankoo = React.createClass({displayName: "Bankoo",
 });
 
 ReactDOM.render((
-  React.createElement(Router, null,
-    React.createElement(Route, {component: Bankoo},
-      React.createElement(Route, {path: "/", component: UserHome}),
+  React.createElement(Router, null, 
+    React.createElement(Route, {component: Bankoo}, 
+      React.createElement(Route, {path: "/", component: UserHome}), 
       React.createElement(Route, {path: "market", component: StockMarket})
     )
   )
@@ -224,7 +224,7 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 module.exports = React.createClass({displayName: "exports",
   render: function() {
     return (
-      React.createElement(Navbar, {inverse: true, className: "navbar-fixed-top"},
+      React.createElement(Navbar, {inverse: true, className: "navbar-fixed-top"}, 
         React.createElement(Auth, null)
       )
     )
@@ -327,17 +327,17 @@ var MarketItems = React.createClass({displayName: "MarketItems",
   },
   render: function() {
     return (
-      React.createElement(Col, {md: 6},
-        React.createElement(Panel, {className: "move-panel"},
-          React.createElement("div", {className: "image", dangerouslySetInnerHTML: {__html: this.props.image}}),
-          React.createElement("div", {className: "panel-content"},
-            React.createElement("h3", null, this.props.name),
-            React.createElement("h4", null, "Price: $", this.props.price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')),
-            React.createElement("h4", null, "Earning: $", this.props.earning.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')),
-            React.createElement("h4", null, "Shares: ", this.props.shares),
+      React.createElement(Col, {md: 6}, 
+        React.createElement(Panel, {className: "move-panel"}, 
+          React.createElement("div", {className: "image", dangerouslySetInnerHTML: {__html: this.props.image}}), 
+          React.createElement("div", {className: "panel-content"}, 
+            React.createElement("h3", null, this.props.name), 
+            React.createElement("h4", null, "Price: $", this.props.price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')), 
+            React.createElement("h4", null, "Earning: $", this.props.earning.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')), 
+            React.createElement("h4", null, "Shares: ", this.props.shares), 
             React.createElement("h4", null, "Buy: ", this.state.buy, " ", React.createElement("a", {onClick: this.handleSubtractButton}, React.createElement("img", {className: "icon icons8-Minus", src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABdUlEQVRIS71VS07CUBQ9FxInrWsAd4ADcIrVBcAGFAfO3YGwDkxsdAGwAG2cWgayhHYHGutE0x7TR0sK9BcodNb09nzuV7DnR8rge912S4QNSK2l4hnMSXH1t9m86P9cgm+jMxTgGoJmKhDhCGBqlj3KIkolCBWjJpNM4HU0wkHAfpqjDQLPaA8g8lhkPd0Rb3RrZia/rRAo5XX52Ao8LA35KQHOk05WCYyOA0FjW4JFA8DRLfskxlgSqIIK7ncCj34mMTq27GH4uiTwqlAfq0u4UAS75j7Vtc/TsBaK4Oei0yMwWQ88uroNC1eYtb/nh40YAfraqz1VBFn5117eC8GVwMuzjbi4DochyEtRGQu/T+P8FO29yKqTqm1TV7dstSAPN2iVuSCW6lccVDFwBL/ERzdz2S1cbLeuFThxl7uu416LDs609GYlXATslTo4yYaOTuYgk4hwCZjx5kybmfJHvy7NgFBHvyaY06ez89EvM8VFMf/G3LcZOf6MyQAAAABJRU5ErkJggg==", width: "24", height: "24"})), React.createElement("a", {onClick: this.handleAddButton}, React.createElement("img", {className: "icon", src: "https://maxcdn.icons8.com/Color/PNG/24/Very_Basic/plus-24.png", title: "Plus", width: "24"}))
             )
-          ),
+          ), 
           React.createElement("center", null, React.createElement(Button, {bsStyle: "primary", onClick: this.buyButton, style: {width:"250px"}, block: true}, "Buy"))
         )
       )
@@ -362,7 +362,7 @@ var MarketList = React.createClass({displayName: "MarketList",
       );
     });
     return (
-      React.createElement("div", {className: "panels-width"},
+      React.createElement("div", {className: "panels-width"}, 
         marketItems
       )
     );
@@ -411,12 +411,12 @@ module.exports = React.createClass({displayName: "exports",
   // },
   render: function() {
     return (
-      React.createElement("div", {className: "render-container"},
-        React.createElement(Grid, null,
-          React.createElement("h2", {className: "page-title"}, "Market"),
-          React.createElement(Earnings, {useruid: user.uid}),
-          React.createElement("hr", null),
-          React.createElement(Row, null,
+      React.createElement("div", {className: "render-container"}, 
+        React.createElement(Grid, null, 
+          React.createElement("h2", {className: "page-title"}, "Market"), 
+          React.createElement(Earnings, {useruid: user.uid}), 
+          React.createElement("hr", null), 
+          React.createElement(Row, null, 
             React.createElement(MarketList, {items: this.state.items})
           )
         )
@@ -468,6 +468,28 @@ module.exports = React.createClass({displayName: "exports",
 //   }
 // });
 
+},{}],"/Users/Henry/github/bankoo-reactjs/javascripts/user-home.jsx":[function(require,module,exports){
+var React = require('react');
+var Panel = require('react-bootstrap').Panel;
+var Row = require('react-bootstrap').Row;
+var Grid = require('react-bootstrap').Grid;
+
+module.exports = React.createClass({displayName: "exports",
+  render () {
+    return (
+      React.createElement("div", {className: "render-container"}, 
+        React.createElement(Row, null, 
+          React.createElement(Grid, null, 
+            React.createElement(Panel, null, 
+              React.createElement("h2", null, "Here I will have the user stats")
+            )
+          )
+        )
+      )
+    )
+  }
+});
+
 },{"react":"/Users/Henry/github/bankoo-reactjs/node_modules/react/react.js","react-bootstrap":"/Users/Henry/github/bankoo-reactjs/node_modules/react-bootstrap/lib/index.js"}],"/Users/Henry/github/bankoo-reactjs/javascripts/welcome-page.jsx":[function(require,module,exports){
 var React = require('react');
 var Jumbotron = require('react-bootstrap').Jumbotron;
@@ -479,14 +501,14 @@ var Link = require('react-router').Link;
 module.exports = React.createClass({displayName: "exports",
   render () {
     return (
-      React.createElement("div", null,
-        React.createElement(Jumbotron, {className: "jumbo-welcome"},
-          React.createElement("h1", null, "Welcome to Bankoo!"),
-          React.createElement("p", null, "The best way to invest and manage your money."),
-          React.createElement("div", {className: "jumbotron-button"},
+      React.createElement("div", null, 
+        React.createElement(Jumbotron, {className: "jumbo-welcome"}, 
+          React.createElement("h1", null, "Welcome to Bankoo!"), 
+          React.createElement("p", null, "The best way to invest and manage your money."), 
+          React.createElement("div", {className: "jumbotron-button"}, 
             React.createElement(Link, {to: "/home"}, "Log in with Google")
           )
-        ),
+        ), 
         React.createElement("div", {className: "bankoo-info"}
         )
       )
@@ -20149,7 +20171,7 @@ function createRouteFromReactElement(element) {
  * nested.
  *
  *   import { Route, createRoutesFromReactChildren } from 'react-router'
- *
+ *   
  *   const routes = createRoutesFromReactChildren(
  *     <Route component={App}>
  *       <Route path="home" component={Dashboard}/>
@@ -40424,7 +40446,7 @@ module.exports = performanceNow;
  *
  * @providesModule shallowEqual
  * @typechecks
- *
+ * 
  */
 
 'use strict';

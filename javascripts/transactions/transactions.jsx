@@ -12,7 +12,7 @@
 // var user = ref.getAuth();
 //
 // module.exports = React.createClass({
-//   render: function() {
+//   render () {
 //     return (
 //       <div className="render-container">
 //         <center><h1>Transactions</h1></center>

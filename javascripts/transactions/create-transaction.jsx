@@ -8,16 +8,16 @@
 // var user = ref.getAuth();
 //
 // module.exports = React.createClass({
-//   getInitialState: function() {
+//   getInitialState () {
 //     return {amountInput: '', tranType: '', showModal: false, disabled: true}
 //   },
-//   close: function() {
+//   close () {
 //     this.setState({showModal: false, amountInput: '', tranType: ''});
 //   },
-//   open: function() {
+//   open () {
 //     this.setState({showModal: true});
 //   },
-//   saveTransaction: function() {
+//   saveTransaction () {
 //     var date = new Date();
 //     var day = date.getDate(),
 //       month = date.getMonth(),
@@ -33,10 +33,10 @@
 //   handleAmountChange (event) {
 //     this.setState({amountInput: event.target.value});
 //   },
-//   handleSelectChange: function() {
+//   handleSelectChange () {
 //     this.setState({tranType: this.refs.select.getValue(), disabled: false});
 //   },
-//   render: function() {
+//   render () {
 //     return (
 //       <div>
 //         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
