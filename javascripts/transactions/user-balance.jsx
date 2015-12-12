@@ -5,10 +5,10 @@
 //
 // module.exports = React.createClass({
 //   mixins: [ReactFire],
-//   getInitialState () {
+//   getInitialState: function(){
 //     return {userBalance: 0.00}
 //   },
-//   componentDidMount () {
+//   componentDidMount: function(){
 //     var userRef = ref.child('users').child(user.uid);
 //     userRef.child('transactions').on('value', function(data) {
 //       var total = 0,
@@ -24,7 +24,7 @@
 //       this.setState({userBalance: total});
 //     }.bind(this));
 //   },
-//   render () {
+//   render: function(){
 //     if (this.state.userBalance < 0) {
 //       return (
 //         <h4 style={{color:"red"}}>Your Balance: ${this.state.userBalance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h4>

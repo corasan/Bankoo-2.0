@@ -6,7 +6,7 @@
 // var user = ref.getAuth();
 //
 // module.exports = React.createClass({
-//   render () {
+//   render: function(){
 //     return (
 //       <Table responsive hover>
 //         <thead>
@@ -25,12 +25,12 @@
 //
 // var TableBody = React.createClass({
 //   mixins: [ReactFire],
-//   getInitialState () {
+//   getInitialState: function(){
 //     return {
 //       items: []
 //     }
 //   },
-//   componentDidMount () {
+//   componentDidMount: function(){
 //     var tranRefs = ref.child('users').child(user.uid).child('transactions');
 //     this.bindAsObject(tranRefs, 'tran');
 //     this.firebaseRefs.tran.limitToLast(10).on('value', function(data) {
@@ -59,7 +59,7 @@
 //
 //     }.bind(this));
 //   },
-//   render () {
+//   render: function(){
 //     return (
 //       <tbody>
 //         {this.state.items}
