@@ -6,7 +6,7 @@ var watchify = require('watchify');
 var reactify = require('reactify');
 var server = require('gulp-server-livereload');
 
-var bundler = watchify(browserify({
+var bundler = (browserify({
   entries: ['./javascripts/bankoo.jsx'],
   transform: [reactify],
   extensions: ['.jsx'],
@@ -24,7 +24,7 @@ function bundle(file) {
     .pipe(source('main.js'))
     .pipe(gulp.dest('./'))
 }
-  bundler.on('update', bundle)
+  // bundler.on('update', bundle)
 
 gulp.task('build', function() {
   bundle()
@@ -46,5 +46,5 @@ gulp.task('serve', function(done) {
       open: true
     }));
 });
-bundler.on('update', bundle);
+// bundler.on('update', bundle);
 gulp.task('default', ['build']);
