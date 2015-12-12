@@ -19,6 +19,7 @@ module.exports = React.createClass({
       return {loggedInUser: ''}
     }
   },
+  
   logOut: function() {
     ref.unauth();
     this.setState({loggedInUser: 'Log in'});
