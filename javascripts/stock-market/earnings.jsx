@@ -13,22 +13,20 @@ var Earnings = React.createClass({
   },
   getEarnings () {
     var user = ref.getAuth();
-    if (user) {
+    if (user && this.firebaseRefs.portfolio) {
       ref.child('users').child(this.props.useruid).once('value', function(userData) {
-        if (this.firebaseRefs.portfolio) {
-          this.firebaseRefs.portfolio.on('value', function(data) {
-            var userAttr = userData.val();
-            if (data.exists()) {
-              var portData = data.val();
-              var total = 0;
-              for (var i in portData) {
-                total += portData[i].earnings
-              }
-              this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
-              ref.child('users').child(this.props.useruid).update({earnings: this.state.totalEarnings.toFixed(2)});
+        this.firebaseRefs.portfolio.on('value', function(data) {
+          var userAttr = userData.val();
+          if (data.exists()) {
+            var portData = data.val();
+            var total = 0;
+            for (var i in portData) {
+              total += portData[i].earnings
             }
-          }.bind(this));
-        }
+            this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
+            ref.child('users').child(this.props.useruid).update({earnings: this.state.totalEarnings.toFixed(2)});
+          }
+        }.bind(this));
       }.bind(this));
     }
   },
