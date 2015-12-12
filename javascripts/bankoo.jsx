@@ -13,7 +13,7 @@ var Firebase = require('firebase');
 var ref = new Firebase('https://bankoo.firebaseio.com/');
 
 var Bankoo = React.createClass({
-  render () {
+  render: function() {
     return (
       <div>
         <MyNavbar/>

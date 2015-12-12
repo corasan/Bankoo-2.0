@@ -11,7 +11,7 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 var UserHome = require('./user-home');
 
 module.exports = React.createClass({
-  getInitialState () {
+  getInitialState: function() {
     var user = ref.getAuth();
     if (user) {
       return {loggedInUser: user.google.displayName, balance: 0}
@@ -19,11 +19,11 @@ module.exports = React.createClass({
       return {loggedInUser: ''}
     }
   },
-  logOut () {
+  logOut: function() {
     ref.unauth();
     this.setState({loggedInUser: 'Log in'});
   },
-  loginButton () {
+  loginButton: function() {
     var that = this;
     ref.authWithOAuthPopup('google', function(error, authData) {
       ref.child('users').child(authData.uid).once('value', function(data) {
@@ -85,14 +85,14 @@ module.exports = React.createClass({
       scope: 'email'
     });
   },
-  componentDidMount () {
+  componentDidMount: function() {
     var signedUser = ref.getAuth();
     ref.child('users').child(signedUser.uid).on('value', function(data) {
       var userData = data.val();
       this.setState({loggedInUser: userData.name, balance: userData.balance.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')});
     }.bind(this));
   },
-  render () {
+  render: function() {
     var user = ref.getAuth();
     if (!user && user === null) {
       return (
