@@ -5,7 +5,7 @@ var ref = new Firebase('https://bankoo.firebaseio.com/');
 var Earnings = React.createClass({
   mixins: [ReactFire],
   getInitialState () {
-    return {totalEarnings: 0}
+    return {totalEarnings: 0, earningsPerSecond: 0}
   },
   componentWillMount () {
     var user = ref.getAuth();
@@ -23,7 +23,7 @@ var Earnings = React.createClass({
             for (var i in portData) {
               total += portData[i].earnings
             }
-            this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total)});
+            this.setState({totalEarnings: parseFloat(userAttr.earnings) + parseFloat(total), earningsPerSecond: total});
             ref.child('users').child(this.props.useruid).update({earnings: this.state.totalEarnings.toFixed(2)});
           }
         }.bind(this));
@@ -35,7 +35,10 @@ var Earnings = React.createClass({
   },
   render () {
     return (
-      <h1>Stock earnings: ${this.state.totalEarnings.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h1>
+      <div>
+        <h2>Stock earnings: ${this.state.totalEarnings.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h2>
+        <h2>Earnings per seconds: ${this.state.earningsPerSecond.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g,'$1,')}</h2>
+      </div>
     )
   }
 });
