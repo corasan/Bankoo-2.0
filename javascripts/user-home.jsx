@@ -10,7 +10,7 @@ module.exports = React.createClass({
         <Row>
           <Grid>
             <Panel>
-              <h2>Here I will have the user stats</h2>
+              <h2>Home</h2>
             </Panel>
           </Grid>
         </Row>
